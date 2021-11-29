@@ -72,7 +72,7 @@ fun StaggeredGrid(orientacion : Int) {
         ) {
             StaggeredGrid(
                 orientacion=orientacion,
-               numColumnsHorizontal = 4,
+                numColumnsHorizontal = 4,
                 numColumnsVertical = 2,//put the how many column you want
                 modifier = Modifier.padding(5.dp)
             ) {
