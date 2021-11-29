@@ -44,7 +44,7 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun StaggeredGrid(orientacion : Int) {
 
-
+    //var indiceColor=0
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -77,6 +77,22 @@ fun StaggeredGrid(orientacion : Int) {
                 modifier = Modifier.padding(5.dp)
             ) {
                 staggeredText.forEach { text ->
+
+
+                    val arrayColores= arrayOf(
+                        android.graphics.Color.RED,
+                        android.graphics.Color.BLUE,
+                        android.graphics.Color.GREEN,
+                        android.graphics.Color.CYAN,
+                        android.graphics.Color.DKGRAY,
+                        android.graphics.Color.MAGENTA,
+                        android.graphics.Color.BLACK,
+                        android.graphics.Color.GRAY,
+                        android.graphics.Color.LTGRAY
+                    )
+
+
+
                     val rnd = Random()
                     val color: Int = android.graphics.Color.argb(255,
                         rnd.nextInt(256),
@@ -84,11 +100,28 @@ fun StaggeredGrid(orientacion : Int) {
                         rnd.nextInt(256)
                     )
 
+                    /*tres opciones de color:
+                        (a) Aleatorio totalmente
+                        (b) Aleatorio de 9 colores
+                        (c) repetitivo de 9 colores
+                    */
+
+                    /*
+                    indiceColor+=1
+                    if (indiceColor>7)
+                        indiceColor=0
+                    */
+
                     Card(
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(5.dp),
                         backgroundColor = Color(color = color),
+
+                        // (b) backgroundColor = Color(color = arrayColores[rnd.nextInt(7)]),
+
+                       // (c) backgroundColor = Color(color = arrayColores[indiceColor]),
+
                         elevation = 10.dp,
                         shape = RoundedCornerShape(10.dp)
                     ) {
@@ -121,7 +154,7 @@ fun StaggeredGrid(orientacion: Int,
     numColumnsHorizontal: Int = 3,
     content: @Composable () -> Unit
 ) {
-   var numColumns=0
+    var numColumns=0
     if (orientacion == Configuration.ORIENTATION_LANDSCAPE) {
         numColumns=numColumnsHorizontal
     }
