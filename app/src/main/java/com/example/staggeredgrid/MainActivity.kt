@@ -1,5 +1,7 @@
 package com.example.staggeredgrid
 
+import android.app.Activity
+import android.content.res.Configuration
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -27,7 +29,10 @@ class MainActivity : ComponentActivity() {
             StaggeredGridTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(color = MaterialTheme.colors.background) {
-                    StaggeredGrid()
+                    val orientation = resources.configuration.orientation
+                    StaggeredGrid(orientation)
+
+
                 }
             }
         }
@@ -36,9 +41,13 @@ class MainActivity : ComponentActivity() {
 
 
 
-
 @Composable
-fun StaggeredGrid() {
+fun StaggeredGrid(orientacion : Int) {
+
+    var columnas=2
+    if (orientacion == Configuration.ORIENTATION_LANDSCAPE) {
+        columnas+=1
+    }
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -65,7 +74,7 @@ fun StaggeredGrid() {
                 .padding(5.dp)
         ) {
             StaggeredGrid(
-                numColumns = 2, //put the how many column you want
+                numColumns = columnas, //put the how many column you want
                 modifier = Modifier.padding(5.dp)
             ) {
                 staggeredText.forEach { text ->
@@ -112,6 +121,7 @@ fun StaggeredGrid(
     numColumns: Int = 2,
     content: @Composable () -> Unit
 ) {
+
     Layout(
         content = content,
         modifier = modifier
