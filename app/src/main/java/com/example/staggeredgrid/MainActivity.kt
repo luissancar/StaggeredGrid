@@ -44,10 +44,7 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun StaggeredGrid(orientacion : Int) {
 
-    var columnas=2
-    if (orientacion == Configuration.ORIENTATION_LANDSCAPE) {
-        columnas+=1
-    }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -74,7 +71,9 @@ fun StaggeredGrid(orientacion : Int) {
                 .padding(5.dp)
         ) {
             StaggeredGrid(
-                numColumns = columnas, //put the how many column you want
+                orientacion=orientacion,
+               numColumnsHorizontal = 4,
+                numColumnsVertical = 2,//put the how many column you want
                 modifier = Modifier.padding(5.dp)
             ) {
                 staggeredText.forEach { text ->
@@ -116,12 +115,20 @@ fun StaggeredGrid(orientacion : Int) {
 
 
 @Composable
-fun StaggeredGrid(
+fun StaggeredGrid(orientacion: Int,
     modifier: Modifier = Modifier,
-    numColumns: Int = 2,
+    numColumnsVertical: Int = 2,
+    numColumnsHorizontal: Int = 3,
     content: @Composable () -> Unit
 ) {
-
+   var numColumns=0
+    if (orientacion == Configuration.ORIENTATION_LANDSCAPE) {
+        numColumns=numColumnsHorizontal
+    }
+    else
+    {
+        numColumns=numColumnsVertical
+    }
     Layout(
         content = content,
         modifier = modifier
